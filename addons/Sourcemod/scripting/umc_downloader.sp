@@ -123,7 +123,7 @@ void ReadDownloadFile() {
     // read group downloads
     JSON_Object groups = rootObject.GetObject(UMCD_KEY_UMC_GROUP);
     if (groups != INVALID_HANDLE) {
-        #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
+#if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
         JSON_Object group = groups.GetObject(mapGroup);
         if(group == INVALID_HANDLE) {
             LogMessage("Could not find key for group: \"%s\"", mapGroup);
@@ -131,9 +131,9 @@ void ReadDownloadFile() {
             LogMessage("Found group: \"%s\"", mapGroup);
             AddSetToDownloads(group);
         }
-        #else
+#else
         AddSetToDownloads(groups.GetObject(mapGroup));
-        #endif
+#endif
     }
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
     else {
@@ -144,7 +144,7 @@ void ReadDownloadFile() {
     // read map downloads
     JSON_Object maps = rootObject.GetObject(UMCD_KEY_MAP_GROUP);
     if (maps != INVALID_HANDLE) {
-        #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
+#if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
         JSON_Object map = maps.GetObject(currentMap);
         if(map == INVALID_HANDLE) {
             LogMessage("Could not find key for map: \"%s\"", currentMap);
@@ -152,9 +152,9 @@ void ReadDownloadFile() {
             LogMessage("Found map: \"%s\"", currentMap);
             AddSetToDownloads(map);
         }
-        #else
+#else
         AddSetToDownloads(maps.GetObject(currentMap));
-        #endif
+#endif
     }
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
     else {
