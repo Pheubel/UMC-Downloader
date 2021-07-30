@@ -1,0 +1,6 @@
+{
+    "sourcepawn.outputDirectoryPath": "addons/Sourcemod/plugins/",
+    "sourcepawn.optionalIncludeDirsPaths": [
+        "addons/Sourcemod/include"
+    ]
+}
