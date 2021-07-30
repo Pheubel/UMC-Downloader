@@ -68,7 +68,6 @@ public void OnLibraryAdded(const char[] name) {
 
 public void OnMapStart() {
     if(!umcdLoaded && LibraryExists(UMC_LIB)) {
-
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_ENTRY)
         LogMessage("loaded through map start.");
 #endif
@@ -134,12 +133,11 @@ void ReadDownloadFile() {
 #else
         AddSetToDownloads(groups.GetObject(mapGroup));
 #endif
-    }
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
-    else {
+    } else {
         LogMessage("Could not find \"%s\" key", UMCD_KEY_UMC_GROUP);
-    }
 #endif
+    }
 
     // read map downloads
     JSON_Object maps = rootObject.GetObject(UMCD_KEY_MAP_GROUP);
@@ -155,12 +153,11 @@ void ReadDownloadFile() {
 #else
         AddSetToDownloads(maps.GetObject(currentMap));
 #endif
-    }
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_SET)
-    else {
+    } else {
         LogMessage("Could not find \"%s\" key", UMCD_KEY_MAP_GROUP);
-    }
 #endif
+    }
 
     json_cleanup_and_delete(rootObject);
     CloseHandle(jsonFile);
@@ -201,12 +198,11 @@ void AddJsonArrayToDownloads(JSON_Array array, UMCD_CACHE_TYPE cacheType) {
 void AddFile(char[] filePath, UMCD_CACHE_TYPE cacheType) {
     if(!FileExists(filePath)) {
         LogMessage("File \"%s\" could not be found.", filePath);
-    }
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_FILE)
-    else {
+    } else {
         LogMessage("File \"%s\" found.", filePath);
-    }
 #endif
+    }
 
     switch(cacheType) {
         case UMCD_CACHE_GENERIC: {
@@ -239,12 +235,12 @@ void AddDirectory(char[] directoryPath, UMCD_CACHE_TYPE cacheType) {
     if (dir == INVALID_HANDLE) {
         LogMessage("Directory \"%s\" could not be found.", directoryPath);
         return;
-    }
 #if (UMCD_DEBUG & UMCD_DEBUG_FLAG_DIRECTORY)
-    else {
+    } else {
         LogMessage("Directory \"%s\" found.", directoryPath);
-    }
 #endif
+    }
+
 
     FileType fileType = FileType_Unknown;
     char entryBuffer[PLATFORM_MAX_PATH];
@@ -269,7 +265,7 @@ void AddDirectory(char[] directoryPath, UMCD_CACHE_TYPE cacheType) {
 
 bool FindGroupOfMap(char[] map, char[] groupBuffer, int bufferSize) {
     KeyValues kv = CreateKeyValues("umc_rotation");
-    if (!FileToKeyValues(kv, UMC_MAPCYCLE_FILE_DEFAULT_LOCATION)){
+    if (!FileToKeyValues(kv, UMC_MAPCYCLE_FILE_DEFAULT_LOCATION)) {
         return false;
     }
 
@@ -278,33 +274,28 @@ bool FindGroupOfMap(char[] map, char[] groupBuffer, int bufferSize) {
         return false;
     }
 
-
     char mapName[PLATFORM_MAX_PATH];
     char groupName[PLATFORM_MAX_PATH];
-    do
-    {
+    do {
         KvGetSectionName(kv, groupName, sizeof(groupName));
 
-        if (!KvGotoFirstSubKey(kv))
+        if (!KvGotoFirstSubKey(kv)) {
             continue;
+        }
 
-        do
-        {
+        do {
             KvGetSectionName(kv, mapName, sizeof(mapName));
-            if (StrEqual(mapName, map, false))
-            {
+            if (StrEqual(mapName, map, false)) {
                 KvGoBack(kv);
                 KvGoBack(kv);
                 strcopy(groupBuffer, bufferSize, groupName);
                 CloseHandle(kv);
                 return true;
             }
-        }
-        while (KvGotoNextKey(kv));
+        } while (KvGotoNextKey(kv));
 
         KvGoBack(kv);
-    }
-    while (KvGotoNextKey(kv));
+    } while (KvGotoNextKey(kv));
 
     CloseHandle(kv);
     return false;
