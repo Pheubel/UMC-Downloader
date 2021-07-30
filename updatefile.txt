@@ -1,0 +1,20 @@
+"Updater"
+{
+    "Information"
+    {
+        "Version"
+        {
+            "Latest"	"1.0.0"
+        }
+        "Notes"	"Initial release"
+    }
+
+    "Files"
+    {
+        "Plugin"	"Path_SM/plugins/umc_downloader.smx"
+
+        "Source"	"Path_SM/scripting/umc_downloader.sp"
+
+        "Source"	"Path_SM/scripting/include/umc_downloader.inc"
+    }
+}
